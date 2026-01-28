@@ -5,7 +5,10 @@ import org.springframework.web.bind.annotation.*;
 import taco.board.article.service.ArticleService;
 import taco.board.article.service.request.ArticleCreateRequest;
 import taco.board.article.service.request.ArticleUpdateRequest;
+import taco.board.article.service.response.ArticlePageResponse;
 import taco.board.article.service.response.ArticleResponse;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -15,6 +18,24 @@ public class ArticleController {
 	@GetMapping("/v1/articles/{articleId}")
 	public ArticleResponse read(@PathVariable Long articleId) {
 		return articleService.read(articleId);
+	}
+
+	@GetMapping("/v1/articles")
+	public ArticlePageResponse readAll(
+			@RequestParam("boardId") Long boardId,
+			@RequestParam("page") Long page,
+			@RequestParam("pageSize") Long pageSize
+	) {
+		return articleService.readAll(boardId, page, pageSize);
+	}
+
+	@GetMapping("/v1/articles/infinite-scroll")
+	public List<ArticleResponse> readAllInfiniteScroll(
+			@RequestParam("boardId") Long boardId,
+			@RequestParam("pageSize") Long pageSize,
+			@RequestParam(value = "lastArticleId", required = false) Long lastArticleId
+	) {
+		return articleService.readAllInfiniteScroll(boardId, pageSize, lastArticleId);
 	}
 
 	@PostMapping("/v1/articles")
