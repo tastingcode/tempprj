@@ -39,4 +39,9 @@ public class CommentControllerV2 {
     public List<CommentResponse> readAllInfiniteScroll(@RequestParam("articleId") Long articleId, @RequestParam(value = "lastPath",required = false) String lastPath, @RequestParam("pageSize") Long pageSize) {
         return this.commentService.readAllInfiniteScroll(articleId, lastPath, pageSize);
     }
+
+	@GetMapping({"/v2/comments/articles/{articleId}/count"})
+	public Long count(@PathVariable("articleId") Long articleId) {
+		return this.commentService.count(articleId);
+	}
 }
