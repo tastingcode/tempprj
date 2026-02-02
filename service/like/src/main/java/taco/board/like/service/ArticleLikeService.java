@@ -1,6 +1,6 @@
 package taco.board.like.service;
 
-import kuke.board.common.snowflake.Snowflake;
+import taco.board.common.snowflake.Snowflake;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

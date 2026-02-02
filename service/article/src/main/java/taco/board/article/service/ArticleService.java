@@ -1,7 +1,7 @@
 package taco.board.article.service;
 
 import jakarta.transaction.Transactional;
-import kuke.board.common.snowflake.Snowflake;
+import taco.board.common.snowflake.Snowflake;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import taco.board.article.entity.Article;
