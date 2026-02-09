@@ -1,4 +1,4 @@
-package taco.board.hotarticle.client;
+package taco.board.articleread.client;
 
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Slf4j
 @Component
@@ -19,27 +20,31 @@ public class ArticleClient {
 	private String articleServiceUrl;
 
 	@PostConstruct
-	void initRestClient() {
+	public void initRestClient() {
 		restClient = RestClient.create(articleServiceUrl);
 	}
 
-	public ArticleResponse read(Long articleId) {
-		try {
-			return restClient.get()
+	public Optional<ArticleResponse> read(Long articleId){
+		try{
+			ArticleResponse articleResponse = restClient.get()
 					.uri("/v1/articles/{articleId}", articleId)
 					.retrieve()
 					.body(ArticleResponse.class);
-		} catch (Exception e) {
+			return Optional.ofNullable(articleResponse);
+		} catch (Exception e){
 			log.error("[ArticleClient.read] articleId={}", articleId, e);
+			return Optional.empty();
 		}
-		return null;
 	}
 
 	@Getter
 	public static class ArticleResponse {
 		private Long articleId;
 		private String title;
+		private String content;
+		private Long boardId;
+		private Long writerId;
 		private LocalDateTime createdAt;
+		private LocalDateTime modifiedAt;
 	}
-
 }

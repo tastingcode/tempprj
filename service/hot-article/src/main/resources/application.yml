@@ -14,5 +14,5 @@ spring:
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       enable-auto-commit: false
 endpoints:
-  taco-board-article-servfice:
+  taco-board-article-service:
     url: http://127.0.0.1:9000
